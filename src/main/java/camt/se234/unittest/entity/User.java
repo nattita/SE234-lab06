@@ -1,10 +1,8 @@
 package camt.se234.unittest.entity;
 
 import lombok.Builder;
-import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Builder
 public class User {
@@ -22,14 +20,6 @@ public class User {
         this.telephoneNo = telephoneNo;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,6 +32,7 @@ public class User {
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (dateOfBirth != null ? !dateOfBirth.equals(user.dateOfBirth) : user.dateOfBirth != null) return false;
         return telephoneNo != null ? telephoneNo.equals(user.telephoneNo) : user.telephoneNo == null;
+
     }
 
     @Override
@@ -52,6 +43,18 @@ public class User {
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
         result = 31 * result + (telephoneNo != null ? telephoneNo.hashCode() : 0);
         return result;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public LocalDate getDateOfBirth() {
