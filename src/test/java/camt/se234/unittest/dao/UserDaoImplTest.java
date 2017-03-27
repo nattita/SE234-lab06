@@ -7,6 +7,7 @@ import camt.se234.unittest.service.UserServiceImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -189,12 +190,13 @@ public class UserDaoImplTest {
     public void testLogin() {
 
         UserDaoImpl userDao = mock(UserDaoImpl.class);
+            //mock
         when(userDao.getUsers())
                 .thenReturn(Arrays.asList(
                         new User("Prayuth" , "1234", "Tu",
                                 LocalDate.of(1979,2,14), "08612345678")
                 ));
-
+//           //test case
 //        UserServiceImpl userService = new UserServiceImpl();
 //        UserDaoImpl userDao = new UserDaoImpl();
 //        userService.setUserDao(userDao);
@@ -205,14 +207,19 @@ public class UserDaoImplTest {
     }
 
     @Test
-    public void testAbleToGoToPub() {
+    public void testAbleToGoToPub(User inputUser,LocalDate date,boolean expected) {
 
         UserDaoImpl userDao = mock(UserDaoImpl.class);
-        when(userDao.getUsers())
-                .thenReturn(Arrays.asList(
-                        new User("Gaanploo", "1111", "Myla",
-                                LocalDate.of(1995, 10, 30), "0234567890")
-                ));
+        //mock
+        UserServiceImpl userService = new UserServiceImpl();
+        userService.setUserDao(userDao);
+        assertThat(userService.isAbleToGoToPub(inputUser,date),is(expected));
+
+//        when(userDao.getUsers())
+//                .thenReturn(Arrays.asList(
+//                        new User("Gaanploo", "1111", "Myla",
+//                                LocalDate.of(1995, 10, 30), "0234567890")
+//                ));
 
 //        UserServiceImpl userService = new UserServiceImpl();
 //        UserDaoImpl userDao = new UserDaoImpl();
@@ -226,7 +233,17 @@ public class UserDaoImplTest {
 //                LocalDate.of(2055, 1, 16), "0004400000"), LocalDate.now()), is(false));
 
     }
-
+    @Test
+    public Object testAbleToGoToPubParam(User inputUser,LocalDate date,boolean expected){
+        return new Object[][]{
+        new User("Gaanploo","1111","Myla",
+                LocalDate.of(1995,10,30),"0234567890"),LocalDate.of(1995,10,29),true},
+        new User("Gaanploo","1111","Myla",
+                LocalDate.of(1995,10,30),"0234567890"),LocalDate.of(2000,10,29)),false},
+        new User("Gaanploo","1111","Myla",
+                LocalDate.of(1995,10,30),"0234567890"),LocalDate.of(1995,10,30)),false};
+        );
+        }
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
