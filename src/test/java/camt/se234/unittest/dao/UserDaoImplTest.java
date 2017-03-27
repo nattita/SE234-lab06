@@ -26,11 +26,11 @@ public class UserDaoImplTest {
     public void testGetUsers() {
 
         UserDaoImpl userDao = mock(UserDaoImpl.class);
-        when(userDao.getUsers())
-                .thenReturn(Arrays.asList(
-                        new User("" , "", "",
-                                LocalDate.of(,,), "")
-                ));
+//        when(userDao.getUsers())
+//                .thenReturn(Arrays.asList(
+//                        new User("" , "", "",
+//                                LocalDate.of(,,), "")
+//                ));
 
 //        UserDaoImpl userDao = new UserDaoImpl();
 //        assertThat(userDao.getUsers(),
@@ -126,16 +126,22 @@ public class UserDaoImplTest {
 
     @Test
     public void testPubAllow() {
-        List<User> list = new ArrayList<>();
-        list.add(new User("Prayuth", "1234", "Tu",
-                LocalDate.of(1979, 2, 14), "08612345678"));
-
-        UserServiceImpl userService = new UserServiceImpl();
-        UserDaoImpl userDao = new UserDaoImpl();
-        userService.setUserDao(userDao);
-
-        thrown.expect(OldManException.class);
-        assertThat(userService.getPubAllowanceUser(LocalDate.of(2017, 3, 20)), is(list));
+        UserDaoImpl userDao = mock(UserDaoImpl.class);
+        when(userDao.getUsers())
+                .thenReturn(Arrays.asList(
+                        new User("Prayuth","1234","Tu",
+                                LocalDate.of(1972,2,14),"08612345678")
+                ));
+//        List<User> list = new ArrayList<>();
+//        list.add(new User("Prayuth", "1234", "Tu",
+//                LocalDate.of(1979, 2, 14), "08612345678"));
+//
+//        UserServiceImpl userService = new UserServiceImpl();
+//        UserDaoImpl userDao = new UserDaoImpl();
+//        userService.setUserDao(userDao);
+//
+//        thrown.expect(OldManException.class);
+//        assertThat(userService.getPubAllowanceUser(LocalDate.of(2017, 3, 20)), is(list));
     }
 
     @Test
